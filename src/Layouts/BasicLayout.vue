@@ -4,36 +4,38 @@
       left-arrow
       @click-left="onClickLeft"
       @click-right="onClickRight"
+      v-show="$route.meta.isShow !== 'none'"
   >
     <template #right>
       <van-icon name="search" size="18"/>
     </template>
   </van-nav-bar>
-  <div id="content">
-    <template v-if="active === 'index'">
-      <index/>
-    </template>
-    <template v-if="active === 'team'">
-      <team/>
-    </template>
-  </div>
-  <van-tabbar v-model="active" @change="onChange">
-    <van-tabbar-item icon="home-o" name="index">主页</van-tabbar-item>
-    <van-tabbar-item icon="search" name="team">队伍</van-tabbar-item>
-    <van-tabbar-item icon="friends-o" name="user">个人</van-tabbar-item>
+
+  <router-view #slot="{ Component }">
+    <transition>
+      <!--      <keep-alive>-->
+      <component :is="Component"/>
+      <!--      </keep-alive>-->
+    </transition>
+  </router-view>
+
+  <van-tabbar @change="onChange" route v-show="$route.meta.isShow !== 'none'">
+    <van-tabbar-item icon="home-o" name="index" :to="{name:'home'}" replace>主页</van-tabbar-item>
+    <van-tabbar-item icon="search" name="team" to="/team" replace>队伍</van-tabbar-item>
+    <van-tabbar-item icon="friends-o" name="user" to="/user" replace>个人</van-tabbar-item>
   </van-tabbar>
 </template>
 
-<script setup>
-import {ref} from "vue";
-import { showToast } from 'vant';
-import Index from "../pages/Index.vue";
-import Team from "../pages/Team.vue";
+<script setup lang="ts">
+import {showToast} from 'vant';
+import {useRouter} from "vue-router"
 
-const onClickLeft = () => history.back();
-const onClickRight = () => showToast('右侧');
+const router = useRouter()
 
-const active = ref("index");
+
+const onClickLeft = () => router.back();
+const onClickRight = () => router.push("/search")
+
 const onChange = (index) => showToast(`标签 ${index}`);
 </script>
 

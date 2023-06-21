@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "vant": "^4.5.0",
-    "vue": "^3.2.47"
+    "vue": "^3.2.47",
+    "vue-router": "4"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.1.0",
