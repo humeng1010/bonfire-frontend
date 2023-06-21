@@ -17,9 +17,6 @@
       <team/>
     </template>
   </div>
-
-
-
   <van-tabbar v-model="active" @change="onChange">
     <van-tabbar-item icon="home-o" name="index">主页</van-tabbar-item>
     <van-tabbar-item icon="search" name="team">队伍</van-tabbar-item>
