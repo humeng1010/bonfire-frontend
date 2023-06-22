@@ -5,23 +5,24 @@
         show-action
         placeholder="请选择标签"
         @search="onSearch"
+        @blur="onSearch(value)"
         @cancel="onCancel"
         autofocus
     />
   </form>
 
   <van-divider>已选标签</van-divider>
-  <div class="tag">
-    <van-tag :show="show" closeable size="medium" type="primary" @close="close">
-      标签
-    </van-tag>
-    <van-tag :show="show" closeable size="medium" type="primary" @close="close">
-      标签
-    </van-tag>
-    <van-tag :show="show" closeable size="medium" type="primary" @close="close">
-      标签
-    </van-tag>
-  </div>
+
+  <div v-if="activeIds.length === 0" style="color: #666;padding:0 20px">请选择标签</div>
+
+  <van-row gutter="16" style="padding: 0 16px">
+    <van-col v-for="tag in activeIds">
+      <van-tag size="large" plain type="primary" closeable @close="onClose(tag)">
+        {{ tag }}
+      </van-tag>
+    </van-col>
+  </van-row>
+
   <van-divider/>
 
   <van-tree-select
@@ -35,40 +36,62 @@
 
 <script setup lang="ts">
 import {ref} from 'vue';
-import {showToast} from 'vant';
-import {useRouter} from "vue-router";
 
-const router = useRouter()
 
-const value = ref('');
-const onSearch = (val) => showToast(val);
-const onCancel = () => router.back();
-
-const show = ref(true);
-const close = () => {
-  show.value = false;
-};
-
-const activeIds = ref([1, 2]);
-const activeIndex = ref(0);
-const tagList = [
+const originTagList = [
   {
     text: '性别',
     children: [
-      {text: '男', id: 1},
-      {text: '女', id: 2},
+      {text: '男', id: '男'},
+      {text: '女', id: '女'},
     ],
   },
   {
     text: '年级',
     children: [
-      {text: '大一', id: 4},
-      {text: '大二', id: 5},
-      {text: '大三', id: 6},
+      {text: '大一', id: '大一'},
+      {text: '大二', id: '大二'},
+      {text: '大三', id: '大三'},
     ],
   },
   {text: '爱好', disabled: true},
 ];
+
+let tagList = ref(originTagList);
+
+const value = ref('');
+
+const onSearch = (val) => {
+  // 创建 originTagList 的深拷贝副本
+  const clonedTagList = JSON.parse(JSON.stringify(originTagList));
+
+  // 对副本进行搜索操作
+  // 更新 tagList
+  tagList.value = clonedTagList.filter((tag) => {
+    if (tag.children) {
+      tag.children = tag.children.filter((child) => {
+        return child.id.includes(val);
+      });
+      return tag.children.length > 0;
+    }
+    return false;
+  });
+
+}
+const onCancel = () => {
+  value.value = ''
+  tagList.value = originTagList
+}
+
+const activeIds = ref([]);
+const activeIndex = ref(0);
+
+const onClose = (tag) => {
+  activeIds.value = activeIds.value.filter(activeId => {
+    return activeId !== tag
+  })
+}
+
 </script>
 
 <style scoped>

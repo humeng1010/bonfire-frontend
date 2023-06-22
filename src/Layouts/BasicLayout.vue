@@ -4,10 +4,10 @@
       left-arrow
       @click-left="onClickLeft"
       @click-right="onClickRight"
-      v-show="$route.meta.isShow !== 'none'"
+
   >
     <template #right>
-      <van-icon name="search" size="18"/>
+      <van-icon name="search" size="18" v-show="$route.meta.isShow !== 'none'"/>
     </template>
   </van-nav-bar>
 
