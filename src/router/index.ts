@@ -8,23 +8,42 @@ const router = createRouter({
         {
             name: "home",
             path: "/index",
-            component: () => import("../pages/Index.vue")
+            component: () => import("../pages/Index.vue"),
+            meta: {
+                title: "篝火"
+            }
         },
         {
             name: "team",
             path: "/team",
-            component: () => import("../pages/Team.vue")
+            component: () => import("../pages/Team.vue"),
+            meta: {
+                title: "队伍"
+            }
         },
         {
             name: "user",
             path: "/user",
-            component: () => import("../pages/User.vue")
+            component: () => import("../pages/User.vue"),
+            meta: {
+                title: "个人信息"
+            }
+        },
+        {
+            name: "user-more",
+            path: "/user-more",
+            component: () => import("../pages/UserMore.vue"),
+            meta: {
+                isShow: "none",
+                title: "更多"
+            }
         },
         {
             path: "/search",
             component: () => import("../pages/Search.vue"),
             meta: {
-                isShow: "none"
+                isShow: "none",
+                title: "搜索"
             }
         },
         {

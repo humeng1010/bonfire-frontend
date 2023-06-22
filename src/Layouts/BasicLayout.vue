@@ -1,6 +1,6 @@
 <template>
   <van-nav-bar
-      title="标题"
+      :title="$route.meta.title"
       left-arrow
       @click-left="onClickLeft"
       @click-right="onClickRight"
