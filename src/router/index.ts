@@ -39,6 +39,30 @@ const router = createRouter({
             }
         },
         {
+            path: "/edit-avatar",
+            component: () => import("../pages/EditAvatarPage.vue"),
+            meta: {
+                isShow: "none",
+                title: "编辑头像"
+            }
+        },
+        {
+            name: "edit",
+            path: "/edit/:title",
+            component: () => import("../pages/EditPage.vue"),
+            meta: {
+                isShow: "none",
+            }
+        },
+        {
+            path: "/edit-tags",
+            component: () => import("../pages/EditTagsPage.vue"),
+            meta: {
+                isShow: "none",
+                title: "设置个人标签"
+            }
+        },
+        {
             path: "/search",
             component: () => import("../pages/Search.vue"),
             meta: {

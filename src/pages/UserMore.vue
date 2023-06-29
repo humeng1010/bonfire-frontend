@@ -1,7 +1,12 @@
 <template>
   <div class="user-more">
     <van-cell-group>
-      <van-cell title="性别" center>
+      <van-cell title="性别" center
+                :to="{name: 'edit',params:{title:'设置性别'},
+                query:{
+                  id:$route.query.id,
+                  common:$route.query.gender}
+                }">
         <template #value>
           {{ $route.query.gender }}
         </template>
@@ -10,7 +15,12 @@
         </template>
       </van-cell>
 
-      <van-cell title="联系电话" center>
+      <van-cell title="联系电话" center
+                :to="{name: 'edit',params:{title:'修改电话'},
+                query:{
+                  id:$route.query.id,
+                  common:$route.query.phone}
+                }">
         <template #value>
           {{ $route.query.phone }}
         </template>
@@ -19,7 +29,12 @@
         </template>
       </van-cell>
 
-      <van-cell title="邮箱" center>
+      <van-cell title="邮箱" center
+                :to="{name: 'edit',params:{title:'修改邮箱'},
+                query:{
+                  id:$route.query.id,
+                  common:$route.query.email}
+                }">
         <template #value>
           {{ $route.query.email }}
         </template>

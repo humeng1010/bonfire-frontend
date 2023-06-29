@@ -1,7 +1,8 @@
 <template>
   <div class="user">
     <van-cell-group>
-      <van-cell title="头像" center arrow-direction="right">
+      <van-cell title="头像" center arrow-direction="right"
+                :to="{path: '/edit-avatar',query:{avatarUrl:user.avatarUrl}}">
         <template #value>
           <img :src="user.avatarUrl" alt="" style="height: 48px;">
         </template>
@@ -10,7 +11,8 @@
         </template>
       </van-cell>
 
-      <van-cell title="名字" center arrow-direction="right">
+      <van-cell title="名字" center arrow-direction="right"
+                :to="{name: 'edit',params:{title:'设置名字'},query:{common:user.username}}">
         <template #value>
           {{ user.username }}
         </template>
@@ -23,12 +25,13 @@
         <template #value>
           {{ user.userAccount }}
         </template>
-        <template #right-icon>
-          <van-icon name="arrow" color="#ccc"/>
-        </template>
+        <!--        <template #right-icon>-->
+        <!--          <van-icon name="arrow" color="#ccc"/>-->
+        <!--        </template>-->
       </van-cell>
 
-      <van-cell title="标签" center arrow-direction="right">
+      <van-cell title="标签" center arrow-direction="right"
+                :to="{path: '/edit-tags',query:{tags:user.tags}}">
         <template #value>
           <van-tag plain type="primary" v-for="tag in user.tags">{{ tag }}</van-tag>
         </template>
@@ -72,7 +75,7 @@ const user = {
   email: '111@11.com',
   userStatus: '正常',
   userRole: 'SVIP',
-  tags: ['大一', 'coding', 'java', '大一', 'coding'],
+  tags: ['大一', 'coding', 'java'],
   createTime: '2023-06-01',
 }
 </script>
