@@ -71,6 +71,15 @@ const router = createRouter({
             }
         },
         {
+            name: "search-result",
+            path: "/search-result",
+            component: () => import("../pages/SearchResult.vue"),
+            meta: {
+                isShow: "none",
+                title: "用户列表"
+            }
+        },
+        {
             path: "/",
             redirect: "/index"
         }

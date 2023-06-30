@@ -4,7 +4,7 @@
       <van-cell title="头像" center arrow-direction="right"
                 :to="{path: '/edit-avatar',query:{avatarUrl:user.avatarUrl}}">
         <template #value>
-          <img :src="user.avatarUrl" alt="" style="height: 48px;">
+          <img :src="avatarUrl" alt="" style="height: 48px;">
         </template>
         <template #right-icon>
           <van-icon name="arrow" color="#ccc"/>
@@ -65,19 +65,23 @@
 </template>
 
 <script setup lang="ts">
-const user = {
-  id: 1,
-  username: '小胡',
-  userAccount: 'xiaohuaoligei',
-  avatarUrl: 'https://img.alicdn.com/bao/uploaded/i1/232692832/O1CN01XERLVq1Wn6Sq5ufB4_!!232692832.jpg_400x400q90',
-  gender: '男',
-  phone: '111',
-  email: '111@11.com',
-  userStatus: '正常',
-  userRole: 'SVIP',
-  tags: ['大一', 'coding', 'java'],
-  createTime: '2023-06-01',
-}
+import {getCurrentLoginUser} from "../api";
+import {computed, onMounted, ref} from "vue";
+
+let user = ref({})
+
+onMounted(() => {
+  getCurrentLoginUser().then(res => {
+    res.data.tags = JSON.parse(res.data.tags)
+    user.value = res.data
+  })
+})
+
+const avatarUrl = computed(() => {
+  return user.value.avatarUrl?.startsWith('http') ?
+      user.value.avatarUrl :
+      '/api/common/download?name=' + user.value.avatarUrl
+})
 </script>
 
 <style scoped>

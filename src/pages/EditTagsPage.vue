@@ -21,6 +21,10 @@
   />
 
 
+  <div class="search-btn">
+    <van-button type="primary" size="large" @click="$p" style="margin: 0 20px;">保存</van-button>
+    <van-button type="default" size="large" @click="$router.back()" style="margin: 0 20px;">取消</van-button>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -66,5 +70,15 @@ const onClose = (tag) => {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+}
+
+
+.search-btn {
+  display: flex;
+  flex-direction: row-reverse;
+  position: fixed;
+  bottom: 20px;
+  width: 100%;
+  /*padding: 10px 10px;*/
 }
 </style>
