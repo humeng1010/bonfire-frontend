@@ -2,7 +2,7 @@
   <div class="user">
     <van-cell-group>
       <van-cell title="头像" center arrow-direction="right"
-                :to="{path: '/edit-avatar',query:{avatarUrl:user.avatarUrl}}">
+                :to="{path: '/edit-avatar',query:{id:user.id ,avatarUrl:avatarUrl,editKey:'avatarUrl'}}">
         <template #value>
           <img :src="avatarUrl" alt="" style="height: 48px;">
         </template>
@@ -12,7 +12,7 @@
       </van-cell>
 
       <van-cell title="名字" center arrow-direction="right"
-                :to="{name: 'edit',params:{title:'设置名字'},query:{common:user.username}}">
+                :to="{name: 'edit',params:{title:'设置名字'},query:{id:user.id ,common:user.username,editKey:'username'}}">
         <template #value>
           {{ user.username }}
         </template>
@@ -31,7 +31,7 @@
       </van-cell>
 
       <van-cell title="标签" center arrow-direction="right"
-                :to="{path: '/edit-tags',query:{tags:user.tags}}">
+                :to="{path: '/edit-tags',query:{id:user.id ,tags:user.tags,editKey:'tags'}}">
         <template #value>
           <van-tag plain type="primary" v-for="tag in user.tags">{{ tag }}</van-tag>
         </template>
@@ -39,7 +39,7 @@
           <van-icon name="arrow" color="#ccc"/>
         </template>
       </van-cell>
-      <van-cell title="更多" center arrow-direction="right" :to="{path:'/user-more',query:{...user}}">
+      <van-cell title="更多" center arrow-direction="right" :to="{path:'/user-more'}">
         <template #value>
         </template>
         <template #right-icon>

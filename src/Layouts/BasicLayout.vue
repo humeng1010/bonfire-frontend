@@ -1,10 +1,10 @@
 <template>
   <van-nav-bar
       :title="$route.meta.title||$route.params.title"
-      left-arrow
-      @click-left="onClickLeft"
-
   >
+    <template #left>
+      <van-icon name="arrow-left" @click="onClickLeft" v-if="$route.meta.title !== '登录'"/>
+    </template>
     <template #right>
       <van-icon name="search" size="18" v-if="$route.meta.isShow !== 'none'" @click="$router.push('/search')"/>
     </template>
@@ -21,6 +21,7 @@
   <van-tabbar route v-show="$route.meta.isShow !== 'none'">
     <van-tabbar-item icon="home-o" name="index" :to="{name:'home'}" replace>主页</van-tabbar-item>
     <van-tabbar-item icon="search" name="team" to="/team" replace>队伍</van-tabbar-item>
+    <van-tabbar-item icon="chat-o" name="chat" to="/chat" replace dot>消息</van-tabbar-item>
     <van-tabbar-item icon="friends-o" name="user" to="/user" replace>个人</van-tabbar-item>
   </van-tabbar>
 </template>

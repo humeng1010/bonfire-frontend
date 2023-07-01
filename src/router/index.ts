@@ -6,6 +6,16 @@ const router = createRouter({
     history: createWebHashHistory(),
     routes: [
         {
+            name: "login",
+            path: "/login",
+            component: () => import("../pages/UserLogin.vue"),
+            meta: {
+                isShow: 'none',
+                title: "登录"
+
+            }
+        },
+        {
             name: "home",
             path: "/index",
             component: () => import("../pages/Index.vue"),
@@ -19,6 +29,14 @@ const router = createRouter({
             component: () => import("../pages/Team.vue"),
             meta: {
                 title: "队伍"
+            }
+        },
+        {
+            name: "chat",
+            path: "/chat",
+            component: () => import("../pages/ChatList.vue"),
+            meta: {
+                title: "消息"
             }
         },
         {
@@ -52,6 +70,7 @@ const router = createRouter({
             component: () => import("../pages/EditPage.vue"),
             meta: {
                 isShow: "none",
+                edit: true
             }
         },
         {

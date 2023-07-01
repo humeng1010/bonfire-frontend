@@ -24,7 +24,7 @@ request.interceptors.response.use(function (response) {
     if (response.data.code === 40100) {
         //跳转到登录页面
 
-        router.replace('/index')
+        router.replace('/login')
     }
     return response.data;
 }, function (error) {
