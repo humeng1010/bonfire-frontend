@@ -1,29 +1,12 @@
 <template>
-  <van-card
-      v-for="user in userList"
-      :desc="user.profile"
-      :title="`${user.username}`"
-      :thumb="user.avatarUrl.startsWith('http')?user.avatarUrl:'/api/common/download?name='+user.avatarUrl"
-  >
-    <template #tags>
-      <van-tag plain type="primary" v-for="tag in user.tags" style="margin-right: 8px;margin-bottom: 8px">{{
-          tag
-        }}
-      </van-tag>
-    </template>
-    <template #footer>
-      <van-button type="primary" size="mini">加好友</van-button>
-      <!--      <van-button size="mini">按钮</van-button>-->
-    </template>
-  </van-card>
-  <van-empty v-if="userList.length===0" image="search" description="没有匹配的用户w(ﾟДﾟ)w"/>
-
+  <user-card-list :user-list="userList"/>
 </template>
 
 <script setup>
 import {useRoute} from "vue-router";
 import {onMounted, ref} from "vue";
 import {searchUsersByTags} from "../api/index.ts";
+import UserCardList from "../components/UserCardList.vue";
 
 const route = useRoute()
 const {tags} = route.query;
@@ -39,7 +22,7 @@ onMounted(() => {
       record.tags = JSON.parse(record.tags)
       return record
     })
-    userList.value = res.data.records
+    userList.value = res?.data.records
   })
 
 

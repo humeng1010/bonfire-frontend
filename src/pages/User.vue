@@ -85,9 +85,6 @@ const avatarUrl = computed(() => {
 </script>
 
 <style scoped>
-.user {
-  margin: 0 0 100px;
-}
 
 .more {
   margin-top: 10px;

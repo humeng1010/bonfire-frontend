@@ -9,14 +9,15 @@
       <van-icon name="search" size="18" v-if="$route.meta.isShow !== 'none'" @click="$router.push('/search')"/>
     </template>
   </van-nav-bar>
-
-  <router-view #slot="{ Component }">
-    <transition>
-      <!--      <keep-alive>-->
-      <component :is="Component"/>
-      <!--      </keep-alive>-->
-    </transition>
-  </router-view>
+  <div class="content">
+    <router-view #slot="{ Component }">
+      <transition>
+        <!--      <keep-alive>-->
+        <component :is="Component"/>
+        <!--      </keep-alive>-->
+      </transition>
+    </router-view>
+  </div>
 
   <van-tabbar route v-show="$route.meta.isShow !== 'none'">
     <van-tabbar-item icon="home-o" name="index" :to="{name:'home'}" replace>主页</van-tabbar-item>
@@ -38,5 +39,7 @@ const onClickLeft = () => router.back();
 </script>
 
 <style scoped>
-
+.content {
+  padding-bottom: 52px;
+}
 </style>

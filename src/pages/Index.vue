@@ -29,17 +29,37 @@
       />
     </van-grid-item>
   </van-grid>
-  <!--  -->
-  <van-grid :column-num="3">
-    <van-grid-item v-for="value in 6" :key="value" icon="photo-o" text="文字"/>
-  </van-grid>
+  <user-card-list :user-list="userList"/>
 
 </template>
 
-<script>
-export default {
-  name: "Index"
-}
+<script setup>
+
+import {useRoute} from "vue-router";
+import {onMounted, ref} from "vue";
+import {recommendUsers} from "../api/index.ts";
+import UserCardList from "../components/UserCardList.vue";
+
+const route = useRoute()
+const {tags} = route.query;
+
+
+const userList = ref([]);
+
+onMounted(() => {
+
+  recommendUsers(1, 10).then(res => {
+    //处理tags的JSON转为对象
+    res.data.records = res.data.records.map(record => {
+      record.tags = JSON.parse(record.tags)
+      return record
+    })
+    userList.value = res.data.records
+  })
+
+
+})
+
 </script>
 
 <style scoped>
@@ -51,4 +71,5 @@ export default {
   background-color: var(--van-pink);
   opacity: 0.6;
 }
+
 </style>

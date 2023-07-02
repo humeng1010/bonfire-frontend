@@ -1,6 +1,7 @@
 import request from "./request";
 import {
     GetCurrentLoginUserRes,
+    RecommendUsersRes,
     SearchUsersByTagsRes,
     UpdateUserByIdRes,
     UserLoginRes,
@@ -78,4 +79,15 @@ export function userLogin(params: UserLoginParams): Promise<UserLoginRes> {
  */
 export function userOutLogin(): Promise<UserOutLoginRes> {
     return request.post(`/user/out-login`);
+}
+
+
+/**
+ * recommendUsers
+ * @param {string} currentPage currentPage
+ * @param {string} pageSize pageSize
+ * @returns
+ */
+export function recommendUsers(currentPage: number, pageSize: number): Promise<RecommendUsersRes> {
+    return request.get(`/user/recommend?currentPage=${currentPage}&pageSize=${pageSize}`);
 }
