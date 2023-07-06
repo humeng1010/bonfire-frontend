@@ -1,6 +1,10 @@
 import request from "./request";
 import {
+    AddTeamParams,
+    AddTeamRes,
     GetCurrentLoginUserRes,
+    GetListTeamParams,
+    GetListTeamRes,
     RecommendUsersRes,
     SearchUsersByTagsRes,
     UpdateUserByIdRes,
@@ -90,4 +94,35 @@ export function userOutLogin(): Promise<UserOutLoginRes> {
  */
 export function recommendUsers(currentPage: number, pageSize: number): Promise<RecommendUsersRes> {
     return request.get(`/user/recommend?currentPage=${currentPage}&pageSize=${pageSize}`);
+}
+
+
+/**
+ * getListTeam
+ * @returns
+ * @param params
+ */
+export function getListTeam(params?: GetListTeamParams): Promise<GetListTeamRes> {
+    return request({
+        url: '/team/list',
+        method: 'get',
+        params
+    });
+}
+
+
+/**
+ * addTeam
+ * @param {object} params teamAddRequest
+ * @param {string} params.description
+ * @param {object} params.expireTime 过期时间,格式:yyyy-MM-dd
+ * @param {number} params.maxNum
+ * @param {string} params.name 队伍名称
+ * @param {string} params.password
+ * @param {number} params.status
+ * @param {number} params.userId
+ * @returns
+ */
+export function addTeam(params: AddTeamParams): Promise<AddTeamRes> {
+    return request.post(`/team/add`, params);
 }

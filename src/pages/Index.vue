@@ -1,14 +1,13 @@
 <template>
   <!--  轮播图-->
   <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-    <van-swipe-item>激情匹配组队</van-swipe-item>
-    <van-swipe-item>是兄弟就来看我</van-swipe-item>
+    <van-swipe-item>匹配组队</van-swipe-item>
     <van-swipe-item>创建房间</van-swipe-item>
-    <van-swipe-item>立马开战！</van-swipe-item>
+    <van-swipe-item>搜索伙伴</van-swipe-item>
   </van-swipe>
   <!--  功能-->
   <van-grid clickable :column-num="2">
-    <van-grid-item icon="home-o" text="创建队伍" to="/"/>
+    <van-grid-item icon="home-o" text="创建队伍" to="/team-add"/>
     <van-grid-item icon="search" text="搜索伙伴" to="/search"/>
   </van-grid>
   <!--  banner-->

@@ -86,7 +86,7 @@ const router = createRouter({
             component: () => import("../pages/Search.vue"),
             meta: {
                 isShow: "none",
-                title: "搜索"
+                title: "搜索伙伴"
             }
         },
         {
@@ -96,6 +96,15 @@ const router = createRouter({
             meta: {
                 isShow: "none",
                 title: "用户列表"
+            }
+        },
+        {
+            name: "team-add",
+            path: "/team-add",
+            component: () => import("../pages/TeamAddPage.vue"),
+            meta: {
+                isShow: "none",
+                title: "创建队伍",
             }
         },
         {
