@@ -11,7 +11,7 @@ const router = createRouter({
             component: () => import("../pages/UserLogin.vue"),
             meta: {
                 isShow: 'none',
-                title: "登录"
+                title: "登录",
 
             }
         },
@@ -28,7 +28,8 @@ const router = createRouter({
             path: "/team",
             component: () => import("../pages/Team.vue"),
             meta: {
-                title: "队伍"
+                title: "队伍",
+                showAddTeam: true,
             }
         },
         {

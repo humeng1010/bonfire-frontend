@@ -3,7 +3,7 @@
       v-for="user in userList"
       :desc="user.profile"
       :title="`${user.username}`"
-      :thumb="user.avatarUrl.startsWith('http')?user.avatarUrl:'/api/common/download?name='+user.avatarUrl"
+      :thumb="computedAvatarUrl(user.avatarUrl)"
   >
     <template #tags>
       <van-tag plain type="primary" v-for="tag in user.tags" style="margin-right: 8px;margin-bottom: 8px">{{
@@ -21,6 +21,7 @@
 
 <script setup lang="ts">
 import {defineProps, withDefaults} from "vue";
+import {computedAvatarUrl} from "../hooks/Utils.ts";
 import {UserType} from "../models/user";
 
 interface UserCardListProps {

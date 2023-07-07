@@ -65,7 +65,7 @@
 </template>
 
 <script setup lang="ts">
-import {getCurrentLoginUser} from "../api";
+import {getCurrentLoginUser} from "../api/index.ts";
 import {computed, onMounted, ref} from "vue";
 
 let user = ref({})

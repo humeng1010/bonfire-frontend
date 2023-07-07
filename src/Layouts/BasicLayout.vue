@@ -1,12 +1,15 @@
 <template>
   <van-nav-bar
       :title="$route.meta.title||$route.params.title"
+      fixed
   >
     <template #left>
       <van-icon name="arrow-left" @click="onClickLeft" v-if="$route.meta.title !== '登录'"/>
     </template>
     <template #right>
       <van-icon name="search" size="18" v-if="$route.meta.isShow !== 'none'" @click="$router.push('/search')"/>
+      <van-icon style="margin-left: 10px" name="add-o" size="18" v-if="$route.meta.showAddTeam"
+                @click="$router.push('/team-add')"/>
     </template>
   </van-nav-bar>
   <div class="content">
@@ -41,6 +44,7 @@ const onClickLeft = () => router.back();
 
 <style scoped>
 .content {
+  padding-top: 46px;
   padding-bottom: 52px;
 }
 </style>

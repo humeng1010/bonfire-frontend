@@ -39,6 +39,7 @@ const userPassword = ref('');
 const onSubmit = (values) => {
   userLogin(values).then(res => {
     if (res.code === 200) {
+      sessionStorage.setItem('userInfo', JSON.stringify(res.data))
       showSuccessToast('登录成功')
       router.replace("/index")
     }

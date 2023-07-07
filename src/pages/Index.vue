@@ -16,6 +16,7 @@
       <van-image
           src="https://fastly.jsdelivr.net/npm/@vant/assets/apple-1.jpeg"
       />
+
     </van-grid-item>
     <van-grid-item>
       <van-image
