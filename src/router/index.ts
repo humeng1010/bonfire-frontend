@@ -20,7 +20,7 @@ const router = createRouter({
             path: "/index",
             component: () => import("../pages/Index.vue"),
             meta: {
-                title: "篝火"
+                title: "推荐"
             }
         },
         {
@@ -29,6 +29,16 @@ const router = createRouter({
             component: () => import("../pages/Team.vue"),
             meta: {
                 title: "队伍",
+                showAddTeam: true,
+            }
+        },
+
+        {
+            name: "team-me",
+            path: "/team-me",
+            component: () => import("../pages/TeamMe.vue"),
+            meta: {
+                title: "篝火",
                 showAddTeam: true,
             }
         },
