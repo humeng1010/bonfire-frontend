@@ -13,13 +13,13 @@
     </template>
   </van-nav-bar>
   <div class="content">
-    <router-view #slot="{ Component }">
-      <transition>
-        <!--      <keep-alive>-->
-        <component :is="Component"/>
-        <!--      </keep-alive>-->
-      </transition>
-    </router-view>
+    <Suspense>
+      <router-view #slot="{ Component }">
+        <transition>
+          <component :is="Component"/>
+        </transition>
+      </router-view>
+    </Suspense>
   </div>
 
   <van-tabbar route v-show="$route.meta.isShow !== 'none'">

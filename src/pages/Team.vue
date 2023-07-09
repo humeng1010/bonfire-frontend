@@ -7,6 +7,7 @@
 
   <van-card
       v-for="team in teamInfo"
+      :key="team.id"
       :desc="team.description"
       :title="team.name"
       :thumb="computedAvatarUrl(team.avatarUrl)"
@@ -50,7 +51,7 @@
         <van-tag plain type="primary">人数：{{ team.currentNum + '/' + team.maxNum }}</van-tag>
 
         <van-button v-if="currentUserInfo.id!==team.createUser.id" size="mini" type="primary"
-                    :disabled="team.currentNum===team.maxNum">加入队伍
+                    :disabled="team.currentNum===team.maxNum" @click="joinTeamHandler(team.id)">加入队伍
         </van-button>
       </div>
     </template>
@@ -59,10 +60,11 @@
 </template>
 
 <script setup>
-import {getListTeam} from "../api/index.ts"
+import {getCurrentLoginUser, getListTeam, joinTeam} from "../api/index.ts"
 import {onMounted, reactive, ref, watch} from "vue";
 
 import {computedAvatarUrl} from "../hooks/Utils.ts";
+import {showToast} from "vant";
 
 const teamInfo = ref([])
 const searchText = ref("")
@@ -76,14 +78,34 @@ watch(searchText, (newVal, oldVal) => {
 //状态 0 公开； 1 私密； 2 加密
 const status = ref(null)
 
-onMounted(() => {
+onMounted(async () => {
   getListTeam().then(res => {
     teamInfo.value = res.data
   })
-  const userInfoJSON = sessionStorage.getItem('userInfo')
+  let userInfoJSON = sessionStorage.getItem('userInfo')
+  if (!userInfoJSON) {
+    const res = await getCurrentLoginUser()
+    if (res.code === 200) {
+      sessionStorage.setItem('userInfo', JSON.stringify(res.data))
+      userInfoJSON = sessionStorage.getItem('userInfo')
+    }
+  }
   currentUserInfo = JSON.parse(userInfoJSON)
-
 })
+
+const joinTeamHandler = (teamId) => {
+  joinTeam({teamId}).then(res => {
+    if (res.code === 200) {
+      showToast("加入队伍成功：" + res.message)
+      getListTeam().then(res => {
+        teamInfo.value = res.data
+      })
+    } else {
+      showToast(res.message)
+    }
+
+  })
+}
 
 
 const menuRef = ref(null);

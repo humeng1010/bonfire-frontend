@@ -34,6 +34,7 @@
                 :to="{path: '/edit-tags',query:{id:user.id ,tags:user.tags,editKey:'tags'}}">
         <template #value>
           <van-tag plain type="primary" v-for="tag in user.tags">{{ tag }}</van-tag>
+          <div v-if="!user.tags">"快来添加您的标签^_^"</div>
         </template>
         <template #right-icon>
           <van-icon name="arrow" color="#ccc"/>
@@ -72,8 +73,13 @@ let user = ref({})
 
 onMounted(() => {
   getCurrentLoginUser().then(res => {
-    res.data.tags = JSON.parse(res.data.tags)
     user.value = res.data
+    let text = res.data.tags;
+    if (!text) {
+      // text = `[]`
+      return
+    }
+    res.data.tags = JSON.parse(text)
   })
 })
 

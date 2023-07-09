@@ -22,6 +22,7 @@
     --van-primary-color: var(--van-pink);
 
     --van-card-background: #fff;
+    --van-toast-text-color: var(--van-primary-color)
 
 
 }

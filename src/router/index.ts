@@ -16,6 +16,15 @@ const router = createRouter({
             }
         },
         {
+            name: "register",
+            path: "/register",
+            component: () => import("../pages/UserRegister.vue"),
+            meta: {
+                isShow: 'none',
+                title: "注册",
+            }
+        },
+        {
             name: "home",
             path: "/index",
             component: () => import("../pages/Index.vue"),
@@ -39,7 +48,16 @@ const router = createRouter({
             component: () => import("../pages/TeamMe.vue"),
             meta: {
                 title: "篝火",
-                showAddTeam: true,
+            }
+        },
+
+        {
+            name: "match-page",
+            path: "/match-page",
+            component: () => import("../pages/MatchPage.vue"),
+            meta: {
+                title: "匹配伙伴",
+                isShow: 'none'
             }
         },
         {

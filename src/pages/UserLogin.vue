@@ -6,6 +6,7 @@
           name="userAccount"
           label="用户名"
           placeholder="用户名"
+          required
           :rules="[{ required: true, message: '请填写用户名' }]"
       />
       <van-field
@@ -14,15 +15,20 @@
           name="userPassword"
           label="密码"
           placeholder="密码"
+          required
           :rules="[{ required: true, message: '请填写密码' }]"
       />
     </van-cell-group>
     <div style="margin: 16px;">
       <van-button round block type="primary" native-type="submit">
-        提交
+        登录
       </van-button>
     </div>
   </van-form>
+  <div class="info">
+    <router-link to="/register">注册</router-link>
+  </div>
+
 
 </template>
 
@@ -50,5 +56,11 @@ const onSubmit = (values) => {
 </script>
 
 <style scoped>
+a {
+  color: var(--van-primary-color);
+}
 
+.info {
+  text-align: center;
+}
 </style>

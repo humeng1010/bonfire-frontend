@@ -17,11 +17,6 @@ const userList = ref([]);
 
 onMounted(() => {
   searchUsersByTags(1, 10, tags).then(res => {
-    //处理tags的JSON转为对象
-    res.data.records = res.data.records.map(record => {
-      record.tags = JSON.parse(record.tags)
-      return record
-    })
     userList.value = res?.data.records
   })
 

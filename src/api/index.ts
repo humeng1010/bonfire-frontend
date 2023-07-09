@@ -2,16 +2,30 @@ import request from "./request";
 import {
     AddTeamParams,
     AddTeamRes,
+    DeleteTeamData,
+    DeleteTeamRes,
     GetCurrentLoginUserRes,
     GetListTeamParams,
     GetListTeamRes,
+    GetTeamByLoginIdRes,
+    JoinTeamParams,
+    JoinTeamRes,
+    MatchUserRes,
+    QuitTeamParams,
+    QuitTeamRes,
     RecommendUsersRes,
     SearchUsersByTagsRes,
+    UpdateTeamParams,
+    UpdateTeamRes,
+    UpdateUserByIdParams,
     UpdateUserByIdRes,
+    UploadAvatarParams,
+    UploadAvatarRes,
     UserLoginRes,
-    UserOutLoginRes
+    UserOutLoginRes,
+    UserRegisterParams,
+    UserRegisterRes
 } from "./resultType";
-import {LocationQueryValue} from "vue-router";
 
 
 /**
@@ -35,6 +49,18 @@ export function getCurrentLoginUser(): Promise<GetCurrentLoginUserRes> {
 
 
 /**
+ * 注册新用户
+ * @param {object} params 注册请求数据
+ * @param {string} params.checkPassword 确认密码
+ * @param {string} params.userAccount 账户
+ * @param {string} params.userPassword 密码
+ * @returns
+ */
+export function userRegister(params: UserRegisterParams): Promise<UserRegisterRes> {
+    return request.post(`/user/register`, params);
+}
+
+/**
  * updateUserById
  * @param {object} params user
  * @param {string} params.avatarUrl
@@ -54,7 +80,7 @@ export function getCurrentLoginUser(): Promise<GetCurrentLoginUserRes> {
  * @param {string} params.username
  * @returns
  */
-export function updateUserById(params: { id: string | LocationQueryValue[]; username: string | LocationQueryValue[] }): Promise<UpdateUserByIdRes> {
+export function updateUserById(params: UpdateUserByIdParams): Promise<UpdateUserByIdRes> {
     return request.put(`/user/update`, params);
 }
 
@@ -125,4 +151,81 @@ export function getListTeam(params?: GetListTeamParams): Promise<GetListTeamRes>
  */
 export function addTeam(params: AddTeamParams): Promise<AddTeamRes> {
     return request.post(`/team/add`, params);
+}
+
+
+/**
+ * matchUser
+ * @param {string} num num
+ * @returns
+ */
+export function matchUser(num: number): Promise<MatchUserRes> {
+    return request.get(`/user/match?num=${num}`);
+}
+
+
+/**
+ * getTeamByLoginId
+ * @returns
+ */
+export function getTeamByLoginId(): Promise<GetTeamByLoginIdRes> {
+    return request.get(`/team/get-by-id`);
+}
+
+
+/**
+ * joinTeam
+ * @param {object} params teamJoinRequest
+ * @param {string} params.password
+ * @param {number} params.teamId
+ * @returns
+ */
+export function joinTeam(params: JoinTeamParams): Promise<JoinTeamRes> {
+    return request.post(`/team/join`, params);
+}
+
+
+/**
+ * quitTeam
+ * @param {object} params teamQuitRequest
+ * @param {number} params.teamId
+ * @returns
+ */
+export function quitTeam(params: QuitTeamParams): Promise<QuitTeamRes> {
+    return request.post(`/team/quit`, params);
+}
+
+
+/**
+ * deleteTeam
+ * @returns
+ */
+export function deleteTeam(data: DeleteTeamData): Promise<DeleteTeamRes> {
+    return request({url: '/team/delete', method: 'DELETE', data});
+}
+
+
+/**
+ * updateTeam
+ * @param {object} params teamUpdateRequest
+ * @param {string} params.description
+ * @param {object} params.expireTime
+ * @param {number} params.id
+ * @param {number} params.maxNum
+ * @param {string} params.name
+ * @param {string} params.password
+ * @param {number} params.status
+ * @returns
+ */
+export function updateTeam(params: UpdateTeamParams): Promise<UpdateTeamRes> {
+    return request.put(`/team/update`, params);
+}
+
+
+/**
+ * 上传文件
+ * @returns
+ */
+export function uploadAvatar(params: UploadAvatarParams): Promise<UploadAvatarRes> {
+    return request.post(`/common/upload`, params, {headers: {"Content-Type": "multipart/form-data"}});
 }

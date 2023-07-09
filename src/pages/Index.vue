@@ -11,25 +11,32 @@
     <van-grid-item icon="search" text="搜索伙伴" to="/search"/>
   </van-grid>
   <!--  banner-->
-  <van-grid :border="false" :column-num="3">
-    <van-grid-item>
-      <van-image
-          src="https://fastly.jsdelivr.net/npm/@vant/assets/apple-1.jpeg"
-      />
+  <!--  <van-grid :border="false" :column-num="3">-->
+  <!--    <van-grid-item>-->
+  <!--      <van-image-->
+  <!--          src=""-->
+  <!--      />-->
 
-    </van-grid-item>
-    <van-grid-item>
-      <van-image
-          src="https://fastly.jsdelivr.net/npm/@vant/assets/apple-2.jpeg"
-      />
-    </van-grid-item>
-    <van-grid-item>
-      <van-image
-          src="https://fastly.jsdelivr.net/npm/@vant/assets/apple-3.jpeg"
-      />
-    </van-grid-item>
-  </van-grid>
-  <user-card-list :user-list="userList"/>
+  <!--    </van-grid-item>-->
+  <!--    <van-grid-item>-->
+  <!--      <van-image-->
+  <!--      />-->
+  <!--    </van-grid-item>-->
+  <!--    <van-grid-item>-->
+  <!--      <van-image-->
+  <!--      />-->
+  <!--    </van-grid-item>-->
+  <!--  </van-grid>-->
+  <user-card-list :user-list="userList">
+    <template #title>
+      <div class="recommend">
+        推荐用户
+      </div>
+      <div class="tips">
+        根据您的个人标签进行推荐
+      </div>
+    </template>
+  </user-card-list>
 
 </template>
 
@@ -49,11 +56,6 @@ const userList = ref([]);
 onMounted(() => {
 
   recommendUsers(1, 10).then(res => {
-    //处理tags的JSON转为对象
-    res.data.records = res.data.records.map(record => {
-      record.tags = JSON.parse(record.tags)
-      return record
-    })
     userList.value = res.data.records
   })
 
@@ -72,4 +74,17 @@ onMounted(() => {
   opacity: 0.6;
 }
 
+.recommend {
+  color: var(--van-primary-color);
+  opacity: .8;
+  text-align: center;
+  margin: 10px;
+}
+
+.tips {
+  color: var(--van-primary-color);
+  opacity: .5;
+  text-align: center;
+  font-size: 14px;
+}
 </style>
