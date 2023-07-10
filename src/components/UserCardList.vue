@@ -7,10 +7,14 @@
       :thumb="computedAvatarUrl(user.avatarUrl)"
   >
     <template #tags>
-      <van-tag plain type="primary" v-for="tag in JSON.parse(user.tags)" style="margin-right: 8px;margin-bottom: 8px">{{
-          tag
-        }}
-      </van-tag>
+      <div v-if="user.tags">
+        <van-tag plain type="primary" v-for="tag in JSON.parse(user?.tags)"
+                 style="margin-right: 8px;margin-bottom: 8px">
+          {{
+            tag
+          }}
+        </van-tag>
+      </div>
     </template>
     <template #footer>
       <van-button type="primary" size="mini" @click="showUserInfo(user)">联系方式</van-button>
