@@ -229,3 +229,22 @@ export function updateTeam(params: UpdateTeamParams): Promise<UpdateTeamRes> {
 export function uploadAvatar(params: UploadAvatarParams): Promise<UploadAvatarRes> {
     return request.post(`/common/upload`, params, {headers: {"Content-Type": "multipart/form-data"}});
 }
+
+
+// 参数接口
+
+// 响应接口
+export interface UploadTeamAvatarRes {
+    code: number;
+    data: string;
+    description: string;
+    message: string;
+}
+
+/**
+ * 上传队伍文件
+ * @returns
+ */
+export function uploadTeamAvatar(params: FormData): Promise<UploadTeamAvatarRes> {
+    return request.post(`/common/upload/team`, params, {headers: {"Content-Type": "multipart/form-data"}});
+}

@@ -8,6 +8,11 @@
           required
           :rules="[{ required: true, message: '请填写队伍名称' }]"
       />
+      <van-field name="avatarUrl" label="文件上传" required>
+        <template #input>
+          <van-uploader v-model="team.avatarUrl" :after-read="afterRead" :max-count="1"/>
+        </template>
+      </van-field>
       <van-field
           v-model="team.description"
           type="textarea"
@@ -47,7 +52,8 @@
           name="password"
           label="队伍密码"
           required
-          :rules="[{ required: true, message: '请填写队伍密码' }]"
+          :rules="[{ required: true,validator: passwordRule,message: '密码必须是6位纯数字' }]"
+          placeholder="密码必须是6位纯数字"
       />
       <!--过期时间-->
 
@@ -76,7 +82,7 @@
 
 <script setup>
 import {reactive, ref} from 'vue';
-import {addTeam} from "../api/index.ts";
+import {addTeam, uploadTeamAvatar} from "../api/index.ts";
 import {showFailToast, showSuccessToast} from "vant";
 import {useRouter} from "vue-router";
 
@@ -89,13 +95,61 @@ const team = reactive({
   "status": 0,
   "password": "",
   "expireTime": "",
+  avatarUrl: []
 })
+
+const passwordRule = (val) => {
+  if (val.length !== 6 || !Number(val)) {
+    return false
+  }
+}
+
+const afterRead = (file) => {
+  // 此时可以自行将文件上传至服务器
+  console.log(file);
+  // 获取Base64字符串
+  const base64String = file.content;
+
+// 将Base64字符串转换为Blob对象
+  const blob = dataURItoBlob(base64String);
+
+// 创建File对象
+  const convertedFile = new File([blob], 'avatar.png', {type: 'image/png'});
+
+// 创建FormData对象
+  const formData = new FormData();
+  formData.append('avatar', convertedFile);
+
+// 发送请求到后端
+  uploadTeamAvatar(formData).then(res => {
+    if (res.code === 200) {
+      resUrl.value = res.data
+    } else {
+      showFailToast('上传文件异常，请稍后再试')
+    }
+  })
+
+};
+
+const resUrl = ref('')
+
+// 辅助函数：将Base64字符串转换为Blob对象
+function dataURItoBlob(dataURI) {
+  const byteString = atob(dataURI.split(',')[1]);
+  const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+  const ab = new ArrayBuffer(byteString.length);
+  const ia = new Uint8Array(ab);
+  for (let i = 0; i < byteString.length; i++) {
+    ia[i] = byteString.charCodeAt(i);
+  }
+  return new Blob([ab], {type: mimeString});
+}
 
 
 const onSubmit = (values) => {
   console.log('submit', values);
 
-  addTeam(values).then(res => {
+  addTeam({...values, avatarUrl: resUrl.value}).then(res => {
     console.log(res)
     if (res.code === 200) {
       showSuccessToast('创建队伍成功');

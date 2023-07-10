@@ -29,6 +29,7 @@
       v-model:active-id="activeIds"
       v-model:main-active-index="activeIndex"
       :items="tagList"
+      height="350"
   />
   <div class="search-btn">
     <van-button type="primary" size="large" @click="doSearchUser">搜索用户</van-button>
@@ -43,12 +44,20 @@ import {useRouter} from "vue-router";
 
 const router = useRouter()
 
+
 const originTagList = [
+
   {
-    text: '性别',
+    text: '编程语言',
     children: [
-      {text: '男', id: '男'},
-      {text: '女', id: '女'},
+      {text: 'Python', id: 'Python'},
+      {text: 'C', id: 'C'},
+      {text: 'C++', id: 'C++'},
+      {text: 'Java', id: 'Java'},
+      {text: 'C#', id: 'C#'},
+      {text: 'JavaScript', id: 'JavaScript'},
+      {text: 'SQL', id: 'SQL'},
+      {text: 'Go', id: 'Go'},
     ],
   },
   {
@@ -57,9 +66,57 @@ const originTagList = [
       {text: '大一', id: '大一'},
       {text: '大二', id: '大二'},
       {text: '大三', id: '大三'},
+      {text: '大四', id: '大四'},
     ],
   },
-  {text: '爱好', disabled: true},
+  {
+    text: '阶段',
+    children: [
+      {text: '上学', id: '上学'},
+      {text: '工作', id: '工作'},
+      {text: '离职', id: '离职'},
+      {text: '退休', id: '退休'},
+    ],
+  },
+  {
+    text: '爱好',
+    children: [
+      {text: '篮球', id: '篮球'},
+      {text: '乒乓球', id: '乒乓球'},
+      {text: '羽毛球', id: '羽毛球'},
+      {text: '网球', id: '网球'},
+      {text: '排球', id: '排球'},
+    ]
+  },
+  {
+    text: '状态',
+    children: [
+      {text: '学习', id: '学习'},
+      {text: '休息', id: '休息'},
+      {text: '生病', id: '生病'},
+      {text: 'coding', id: 'coding'},
+      {text: '游戏', id: '游戏'},
+      {text: '单身', id: '单身'},
+    ]
+  },
+  {
+    text: '性格',
+    children: [
+      {text: '仔细', id: '仔细'},
+      {text: '强迫症', id: '强迫症'},
+      {text: '认真', id: '认真'},
+      {text: '懒', id: '懒'},
+      {text: '躺平', id: '躺平'},
+      {text: '奋斗', id: '奋斗'},
+    ]
+  },
+  {
+    text: '性别',
+    children: [
+      {text: '男', id: '男'},
+      {text: '女', id: '女'},
+    ]
+  },
 ];
 
 let tagList = ref(originTagList);

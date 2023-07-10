@@ -60,14 +60,7 @@ const router = createRouter({
                 isShow: 'none'
             }
         },
-        {
-            name: "chat",
-            path: "/chat",
-            component: () => import("../pages/ChatList.vue"),
-            meta: {
-                title: "消息"
-            }
-        },
+
         {
             name: "user",
             path: "/user",

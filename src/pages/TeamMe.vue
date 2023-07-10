@@ -48,6 +48,9 @@
               <van-button v-if="currentUserInfo.id===team.userId" size="mini" type="primary"
                           @click="showUpdatePopup(team)">修改队伍
               </van-button>
+              <van-button size="mini" type="primary"
+                          @click="showMembersPopup(team)">查看成员
+              </van-button>
               <van-button v-if="currentUserInfo.id!==team.userId" size="mini" type="primary"
                           @click="quitTeamHandler(team.id)">退出队伍
               </van-button>
@@ -77,6 +80,13 @@
               required
               :rules="[{ required: true, message: '请填写队伍名称' }]"
           />
+
+          <van-field name="avatarUrl" label="选择头像">
+            <template #input>
+              <van-uploader v-model="avatarUrl" :after-read="afterRead" :max-count="1"/>
+            </template>
+          </van-field>
+
           <van-field
               v-model="updateTeamInfo.description"
               type="textarea"
@@ -139,7 +149,17 @@
       </van-form>
     </van-popup>
 
-
+    <!--    查看队伍成员弹出层-->
+    <van-popup
+        v-model:show="showMembers"
+        round
+        position="bottom"
+        style="height: 80%;"
+    >
+      <div class="members">
+        <user-card-list :user-list="userList"/>
+      </div>
+    </van-popup>
   </div>
 
 </template>
@@ -147,14 +167,24 @@
 <script setup>
 import {useRouter} from "vue-router";
 import {reactive, ref} from "vue";
-import {deleteTeam, getCurrentLoginUser, getTeamByLoginId, quitTeam, updateTeam} from "../api/index.ts";
+import {
+  deleteTeam,
+  getCurrentLoginUser,
+  getTeamByLoginId,
+  quitTeam,
+  updateTeam,
+  uploadTeamAvatar
+} from "../api/index.ts";
 import {computedAvatarUrl} from "../hooks/Utils.ts";
 import {showConfirmDialog, showFailToast, showSuccessToast, showToast} from "vant";
+import UserCardList from '../components/UserCardList.vue'
 
 const activeName = ref('1');
 const teamInfo = ref()
 const updateTeamInfo = ref()
 const router = useRouter()
+const avatarUrl = ref([{}
+])
 const toMatchPage = () => {
   router.push("/match-page")
 }
@@ -162,7 +192,57 @@ const showUpdate = ref(false);
 const showUpdatePopup = (team) => {
   showUpdate.value = true;
   updateTeamInfo.value = JSON.parse(JSON.stringify(team))
+  avatarUrl.value[0].url = computedAvatarUrl(updateTeamInfo.value.avatarUrl)
+  avatarUrl.value[0].isImage = true
+  resUrl.value = updateTeamInfo.value.avatarUrl
 };
+const showMembers = ref(false)
+const userList = ref([])
+const showMembersPopup = (team) => {
+  showMembers.value = true
+  userList.value = team.members
+}
+
+const afterRead = (file) => {
+  // 此时可以自行将文件上传至服务器
+  console.log(file);
+  // 获取Base64字符串
+  const base64String = file.content;
+
+// 将Base64字符串转换为Blob对象
+  const blob = dataURItoBlob(base64String);
+
+// 创建File对象
+  const convertedFile = new File([blob], 'avatar.png', {type: 'image/png'});
+
+// 创建FormData对象
+  const formData = new FormData();
+  formData.append('avatar', convertedFile);
+
+// 发送请求到后端
+  uploadTeamAvatar(formData).then(res => {
+    if (res.code === 200) {
+      resUrl.value = res.data
+    } else {
+      showFailToast('上传文件异常，请稍后再试')
+    }
+  })
+
+};
+
+const resUrl = ref('')
+
+// 辅助函数：将Base64字符串转换为Blob对象
+function dataURItoBlob(dataURI) {
+  const byteString = atob(dataURI.split(',')[1]);
+  const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+  const ab = new ArrayBuffer(byteString.length);
+  const ia = new Uint8Array(ab);
+  for (let i = 0; i < byteString.length; i++) {
+    ia[i] = byteString.charCodeAt(i);
+  }
+  return new Blob([ab], {type: mimeString});
+}
 
 const quitTeamHandler = (teamId) => {
   showConfirmDialog({
@@ -221,7 +301,7 @@ async function getTeamInfo() {
 await getTeamInfo();
 
 const onSubmit = async (values) => {
-  values = {...values, id: updateTeamInfo.value.id}
+  values = {...values, id: updateTeamInfo.value.id, avatarUrl: resUrl.value}
   console.log(values)
   const res = await updateTeam(values)
   if (res.code === 200) {
@@ -299,5 +379,9 @@ const onDateConfirm = (date) => {
   display: flex;
   justify-content: right;
   align-items: center;
+}
+
+.members {
+  margin: 20px 0;
 }
 </style>

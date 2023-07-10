@@ -26,7 +26,6 @@
     <van-tabbar-item icon="home-o" name="index" :to="{name:'home'}" replace>主页</van-tabbar-item>
     <van-tabbar-item icon="search" name="team" to="/team" replace>队伍</van-tabbar-item>
     <van-tabbar-item icon="fire-o" name="team-me" to="/team-me" replace>篝火</van-tabbar-item>
-    <van-tabbar-item icon="chat-o" name="chat" to="/chat" replace dot>消息</van-tabbar-item>
     <van-tabbar-item icon="friends-o" name="user" to="/user" replace>个人</van-tabbar-item>
   </van-tabbar>
 </template>

@@ -96,7 +96,7 @@ const logout = () => {
   userOutLogin().then(res => {
     if (res.code === 200) {
       showSuccessToast("退出成功")
-      router.replace("/login")
+      router.push("/login")
     }
   })
 }
