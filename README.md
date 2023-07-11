@@ -1,18 +1,22 @@
-# Vue 3 + TypeScript + Vite
+# 篝火-伙伴匹配APP-前端
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+技术栈： `Vue3`、`Vite`、`TypeScript`
 
-## Recommended IDE Setup
+移动端APP网站
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+页面展示：
 
-## Type Support For `.vue` Imports in TS
+| 首页推荐页面                                                 | 队伍组队页面                                                 | 我的队伍页面+匹配伙伴页面                                    | 个人信息页面                                                 |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| <img src="https://blog-images-1309758663.cos.ap-nanjing.myqcloud.com/202307111631151.png" alt="image-20230711163103958" style="zoom:50%;float:left;" /> | <img src="https://blog-images-1309758663.cos.ap-nanjing.myqcloud.com/202307111631525.png" alt="image-20230711163159426" style="zoom:50%;float:left;" /> | <img src="https://blog-images-1309758663.cos.ap-nanjing.myqcloud.com/202307111633860.png" alt="image-20230711163332800" style="zoom:50%;" /> | <img src="https://blog-images-1309758663.cos.ap-nanjing.myqcloud.com/202307111634883.png" alt="image-20230711163417839" style="zoom:50%;" /> |
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+| 创建队伍页面                                                 | 修改队伍页面                                                 | 查看队伍成员                                                 | 搜索伙伴                                                     |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| <img src="https://blog-images-1309758663.cos.ap-nanjing.myqcloud.com/202307111637874.png" alt="image-20230711163729828" style="zoom:50%;" /> | <img src="https://blog-images-1309758663.cos.ap-nanjing.myqcloud.com/202307111638177.png" alt="image-20230711163803098" style="zoom:50%;" /> | <img src="https://blog-images-1309758663.cos.ap-nanjing.myqcloud.com/202307111638089.png" alt="image-20230711163852048" style="zoom:50%;" /> | <img src="https://blog-images-1309758663.cos.ap-nanjing.myqcloud.com/202307111640542.png" alt="image-20230711164033485" style="zoom:50%;" /> |
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+> 后端项目地址：https://github.com/humeng1010/bonfire-backend
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+
+
+
+
