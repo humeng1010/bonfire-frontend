@@ -227,7 +227,7 @@ export function updateTeam(params: UpdateTeamParams): Promise<UpdateTeamRes> {
  * @returns
  */
 export function uploadAvatar(params: UploadAvatarParams): Promise<UploadAvatarRes> {
-    return request.post(`/common/upload`, params, {headers: {"Content-Type": "multipart/form-data"}});
+    return request.post(`/upload/avatar`, params, {headers: {"Content-Type": "multipart/form-data"}});
 }
 
 
@@ -246,5 +246,5 @@ export interface UploadTeamAvatarRes {
  * @returns
  */
 export function uploadTeamAvatar(params: FormData): Promise<UploadTeamAvatarRes> {
-    return request.post(`/common/upload/team`, params, {headers: {"Content-Type": "multipart/form-data"}});
+    return request.post(`/upload`, params, {headers: {"Content-Type": "multipart/form-data"}});
 }

@@ -38,7 +38,6 @@ const router = useRouter()
 
 const onClickLeft = () => router.back();
 
-
 </script>
 
 <style scoped>

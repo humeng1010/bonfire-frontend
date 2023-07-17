@@ -1,5 +1,7 @@
 import {createRouter, createWebHashHistory} from "vue-router"
 
+import Index from "../pages/Index.vue"
+import Team from "../pages/Team.vue"
 
 const router = createRouter({
     // 4. 内部提供了 history 模式的实现。为了简单起见，我们在这里使用 hash 模式。
@@ -27,15 +29,15 @@ const router = createRouter({
         {
             name: "home",
             path: "/index",
-            component: () => import("../pages/Index.vue"),
+            component: Index,
             meta: {
-                title: "推荐"
+                title: "推荐",
             }
         },
         {
             name: "team",
             path: "/team",
-            component: () => import("../pages/Team.vue"),
+            component: Team,
             meta: {
                 title: "队伍",
                 showAddTeam: true,

@@ -13,7 +13,7 @@
       @select="onSelect">
     <template #action>
       <form>
-        <input style="display: none" name="avatar" type="file" ref="file" @click="uploadHandler"/>
+        <input style="display: none" name="avatar" type="file" ref="file"/>
         <div class="upload" @click="uploadHandler">从手机中选择图片</div>
       </form>
     </template>
@@ -55,7 +55,7 @@ const uploadHandler = () => {
       })
       window.clearInterval(timer)
     }
-  }, 1000)
+  }, 2000)
 }
 const onSelect = (item) => {
   if (item.name === '从手机选择') {
