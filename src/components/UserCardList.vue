@@ -3,9 +3,20 @@
   <van-card
       v-for="user in userList"
       :desc="user.profile"
+
       :title="`${user.username}`"
       :thumb="computedAvatarUrl(user.avatarUrl)"
   >
+    <template #tag>
+      <div v-if="user?.distance">
+        <van-tag plain type="primary"
+                 style="margin-right: 8px;margin-bottom: 8px">
+          {{
+            Math.round(user?.distance / 1000) + 'km'
+          }}
+        </van-tag>
+      </div>
+    </template>
     <template #tags>
       <div v-if="user.tags">
         <van-tag plain type="primary" v-for="tag in JSON.parse(user?.tags)"
@@ -66,11 +77,12 @@
 import {defineProps, ref, withDefaults} from "vue";
 import {computedAvatarUrl} from "../hooks/Utils.ts";
 import {UserType} from "../models/user";
+import {RecommendUsersDistanceRes} from "../api/resultType";
 
 const showUser = ref(false)
 
 interface UserCardListProps {
-  userList: UserType[]
+  userList: UserType[] | RecommendUsersDistanceRes[]
 }
 
 // @ts-ignore

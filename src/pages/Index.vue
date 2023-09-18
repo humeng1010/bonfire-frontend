@@ -10,7 +10,7 @@
     <van-grid-item icon="home-o" text="创建队伍" to="/team-add"/>
     <van-grid-item icon="search" text="搜索伙伴" to="/search"/>
   </van-grid>
-  <!--  banner-->
+  <!--    banner-->
   <!--  <van-grid :border="false" :column-num="3">-->
   <!--    <van-grid-item>-->
   <!--      <van-image-->
@@ -29,12 +29,9 @@
   <!--  </van-grid>-->
   <user-card-list :user-list="userList">
     <template #title>
-      <div class="recommend">
-        推荐用户
-      </div>
-      <div class="tips">
-        根据您的个人标签进行推荐
-      </div>
+      <van-dropdown-menu style="margin: 10px;">
+        <van-dropdown-item v-model="value1" :options="option1"/>
+      </van-dropdown-menu>
     </template>
   </user-card-list>
 
@@ -43,24 +40,41 @@
 <script setup>
 
 import {useRoute} from "vue-router";
-import {onMounted, ref} from "vue";
-import {recommendUsers} from "../api/index.ts";
+import {ref, watch} from "vue";
+import {recommendUsers, recommendUsersDistance} from "../api/index.ts";
 import UserCardList from "../components/UserCardList.vue";
 
 const route = useRoute()
 const {tags} = route.query;
-
-
+const value1 = ref(0);
+const option1 = [
+  {text: '根据标签推荐', value: 0},
+  {text: '根据距离推荐', value: 1},
+];
 const userList = ref([]);
+const geo = ref({})
+watch(value1, (value) => {
+  if (value === 0) {
+    recommendUsers(1, 10).then(res => {
+      userList.value = res.data.records
+    })
+  } else if (value === 1) {
+    navigator.geolocation.getCurrentPosition(res => {
+      // console.log(`经度：${res.coords.longitude}、纬度：${res.coords.latitude}`)
+      geo.value.longitude = res.coords.longitude
+      geo.value.latitude = res.coords.latitude
+    })
 
-onMounted(() => {
+  }
+}, {immediate: true})
 
-  recommendUsers(1, 10).then(res => {
-    userList.value = res.data.records
+watch(geo.value, (value) => {
+  console.log()
+  recommendUsersDistance(value?.latitude, value?.longitude).then(res => {
+    userList.value = res?.data.records
   })
-
-
 })
+
 
 </script>
 

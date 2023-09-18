@@ -352,3 +352,23 @@ export interface UploadAvatarRes {
     description: string;
     message: string;
 }
+
+// 响应接口
+export interface RecommendUsersDistanceRes {
+    avatarUrl: string;
+    distance: Record<string, unknown>;
+    createTime: Record<string, unknown>;
+    email: string;
+    gender: number;
+    id: number;
+    isDelete: number;
+    phone: string;
+    profile: string;
+    tags: string;
+    updateTime: Record<string, unknown>;
+    userAccount: string;
+    userPassword: string;
+    userRole: number;
+    userStatus: number;
+    username: string;
+}

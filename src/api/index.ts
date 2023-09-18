@@ -13,6 +13,7 @@ import {
     MatchUserRes,
     QuitTeamParams,
     QuitTeamRes,
+    RecommendUsersDistanceRes,
     RecommendUsersRes,
     SearchUsersByTagsRes,
     UpdateTeamParams,
@@ -122,6 +123,15 @@ export function recommendUsers(currentPage: number, pageSize: number): Promise<R
     return request.get(`/user/recommend?currentPage=${currentPage}&pageSize=${pageSize}`);
 }
 
+/**
+ * recommendUsersDistance
+ * @param {string} latitude latitude
+ * @param {string} longitude longitude
+ * @returns
+ */
+export function recommendUsersDistance(latitude: object, longitude: object): Promise<RecommendUsersDistanceRes> {
+    return request.get(`/user/recommendByDistance?latitude=${latitude}&longitude=${longitude}`);
+}
 
 /**
  * getListTeam
